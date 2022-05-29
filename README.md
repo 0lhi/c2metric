@@ -1,2 +1,3 @@
-# c2convert
-To-Metric-Converter for my own convenience.
+# c2metric
+
+Command Line Program to convert several non-metric units to metric.
