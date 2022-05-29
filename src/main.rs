@@ -5,8 +5,6 @@ mod area;
 use area::area_calc;
 mod mass;
 use mass::mass_calc;
-// mod speed;
-// use speed::speed_calc;
 
 fn calc_template(x: f64, y: f64, s: &str) -> (String, f64) {
     let end_unit: String = s.to_string();
@@ -25,10 +23,7 @@ fn main() {
     let start_unit: String = input
         .trim()
         .to_lowercase()
-        .replace(
-            |c: char| !rdlc::is_not_float(c) || c == ' ', //To be replaced with not_latin.
-            "",
-        )
+        .replace(|c: char| !rdlc::is_not_float(c) || c == ' ', "")
         .trim()
         .to_string();
     println!(
@@ -70,7 +65,7 @@ fn main() {
         "meter" => length_calc(&mut metric_main, &mut end_unit),
         "m²" => area_calc(&mut metric_main, &mut end_unit),
         "g" => mass_calc(&mut metric_main, &mut end_unit),
-        "m/s" => (), //speed_calc(&mut metric_main, &mut end_unit),
+        "m/s" => (),
         "°C" => (),
         _ => panic!("Error 2 L0L"),
     };
