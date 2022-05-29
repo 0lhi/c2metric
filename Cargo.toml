@@ -1,0 +1,9 @@
+[package]
+name = "c2metric"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rdlc = { git = "https://github.com/0lhi/rust_dlc.git", package = "rust_dlc"}
