@@ -1,10 +1,7 @@
 use std::io;
-mod length;
-use length::length_calc;
 mod area;
-use area::area_calc;
+mod length;
 mod mass;
-use mass::mass_calc;
 
 fn calc_template(x: f64, y: f64, s: &str) -> (String, f64) {
     let end_unit: String = s.to_string();
@@ -62,9 +59,9 @@ fn main() {
     };
 
     match end_unit.as_str() {
-        "meter" => length_calc(&mut metric_main, &mut end_unit),
-        "m²" => area_calc(&mut metric_main, &mut end_unit),
-        "g" => mass_calc(&mut metric_main, &mut end_unit),
+        "meter" => length::length_calc(&mut metric_main, &mut end_unit),
+        "m²" => area::area_calc(&mut metric_main, &mut end_unit),
+        "g" => mass::mass_calc(&mut metric_main, &mut end_unit),
         "m/s" => (),
         "°C" => (),
         _ => panic!("Error 2 L0L"),
