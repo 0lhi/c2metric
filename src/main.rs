@@ -3,7 +3,7 @@ mod area;
 mod length;
 mod mass;
 
-fn calc_template(x: f64, y: f64, s: &str) -> (String, f64) {
+fn metric_calc(x: f64, y: f64, s: &str) -> (String, f64) {
     let end_unit: String = s.to_string();
     (end_unit, x * y)
 }
@@ -31,37 +31,37 @@ fn main() {
     let (mut end_unit, mut metric_main) = match start_unit.as_str() {
         // Areas
         "square inch" | "square inches" | "sqin"
-        => calc_template(number, 0.0006452, "m²"),
+        => metric_calc(number, 0.0006452, "m²"),
         "square mile" | "square miles" | "sqmi"
-        => calc_template(number, 2590000.0, "m²"),
+        => metric_calc(number, 2590000.0, "m²"),
         // Lengths
         "inch" | "inches" | "in"
-        => calc_template(number, 0.0254, "meter"),
+        => metric_calc(number, 0.0254, "meter"),
         "mile" | "miles" | "mi"
-        => calc_template(number, 1609.0, "meter"),
+        => metric_calc(number, 1609.0, "meter"),
         // Masses
         "ounce" | "ounces" | "oz"
-        => calc_template(number, 28.35, "g"),
+        => metric_calc(number, 28.35, "g"),
         "pound" | "pounds" | "lb" | "lbs"
-        => calc_template(number, 453.6, "g"),
+        => metric_calc(number, 453.6, "g"),
         // Speed
         "mileperhour" | "milesperhour" | "mph" | "ml/h"
-        => calc_template(number, 0.447, "m/s"),
+        => metric_calc(number, 0.447, "m/s"),
         "footpersecond" | "feetpersecond" | "ft/s" | "fps"
-        => calc_template(number, 0.3048, "m/s"),
+        => metric_calc(number, 0.3048, "m/s"),
         // Temperatures
         "°f" | "degreefahrenheit" | "degreesfahrenheit"
-        => calc_template(number - 32.0, 5.0 / 9.0, "°C"),
+        => metric_calc(number - 32.0, 5.0 / 9.0, "°C"),
         "°r" | "degreerankine" | "degreesrankine"
-        => calc_template(number - 491.67, 5.0 / 9.0, "°C"),
+        => metric_calc(number - 491.67, 5.0 / 9.0, "°C"),
 
         _ => panic!("Error LOL"),
     };
 
     match end_unit.as_str() {
-        "meter" => length::length_calc(&mut metric_main, &mut end_unit),
-        "m²" => area::area_calc(&mut metric_main, &mut end_unit),
-        "g" => mass::mass_calc(&mut metric_main, &mut end_unit),
+        "meter" => length::calc(&mut metric_main, &mut end_unit),
+        "m²" => area::calc(&mut metric_main, &mut end_unit),
+        "g" => mass::calc(&mut metric_main, &mut end_unit),
         "m/s" => (),
         "°C" => (),
         _ => panic!("Error 2 L0L"),
