@@ -30,9 +30,9 @@ fn main() {
     #[rustfmt::skip]
     let (mut end_unit, mut metric_main) = match start_unit.as_str() {
         // Areas
-        "square inch" | "square inches" | "sqin"
+        "squareinch" | "squareinches" | "sqin"
         => metric_calc(number, 0.0006452, "m²"),
-        "square mile" | "square miles" | "sqmi"
+        "squaremile" | "squaremiles" | "sqmi"
         => metric_calc(number, 2590000.0, "m²"),
         // Lengths
         "inch" | "inches" | "in"
