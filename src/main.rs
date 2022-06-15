@@ -19,13 +19,15 @@ fn main() {
         .expect("Program crashes. Did you use two points?");
     let start_unit: String = input
         .trim()
+        .replace("ST", "shortton")
         .to_lowercase()
         .replace(rdlc::digital_scale, "")
         .trim()
         .to_string();
     println!(
         "Let's see if this number {} and unit {:?} work.",
-        number, start_unit
+        number,
+        start_unit.replace("lt", "LT")
     );
     #[rustfmt::skip]
     let (mut end_unit, mut metric_main) = match start_unit.as_str() {
@@ -40,12 +42,38 @@ fn main() {
         "mile" | "miles" | "mi"
         => metric_calc(number, 1609.0, "meter"),
         // Masses
-        "longton" | "lt"
-        => metric_calc(number, 28.35, "g"),
-        "ounce" | "ounces" | "oz"
-        => metric_calc(number, 28.35, "g"),
+            // Avoirdupois
+        "longton" | "lt" | "longtonne" | "longtons" | "longtonnes"
+        => metric_calc(number, 1016046.9088, "g"),
+        "shortton" | "shorttonne" | "shorttons" | "shorttonnes"
+        => metric_calc(number, 907184.74, "g"),
+        "longhundredweight" | "longcwt" | "lcwt" | "longhundredweights" | "longcwts" | "lcwts"
+        => metric_calc(number, 50802.3454, "g"),
+        "shorthundredweight" | "shortcwt" | "scwt" | "shorthundredweights" | "shortcwts" | "scwts"
+        => metric_calc(number, 45359.237 , "g"),
+        "longquarter" | "longqtr" | "lqtr" | "longquarters" | "longqtrs" | "lqtrs"
+        => metric_calc(number, 13000.0, "g"),
+        "shortquarter" | "shortqtr" | "sqtr" | "shortquarters" | "shortqtrs" | "sqtrs"
+        => metric_calc(number, 11000.0 , "g"),
+        "stone" | "stones" | "st" | "sts"
+        => metric_calc(number, 6350.29318, "g"),
         "pound" | "pounds" | "lb" | "lbs"
         => metric_calc(number, 453.6, "g"),
+        "ounce" | "ounces" | "oz" | "ozs"
+        => metric_calc(number, 28.35, "g"),
+        "drachm" | "dram" | "drachms" | "drams" | "drc" | "drcs"
+        => metric_calc(number, 1.77, "g"),
+        "grain" | "gr" | "grains" | "grs"
+        => metric_calc(number, 0.06479891, "g"),
+            // Troy & carat
+        "troypound" | "troypounds"
+        => metric_calc(number, 370.0, "g"),
+        "troyounce" | "troyounces" | "ozt" | "ozts"
+        => metric_calc(number, 31.0, "g"),
+        "pennyweight" | "dwt" | "pennyweights" | "dwts"
+        => metric_calc(number, 1.6, "g"),
+        "carat" | "carats"
+        => metric_calc(number, 0.20, "g"),
         // Speed
         "mileperhour" | "milesperhour" | "mph" | "ml/h"
         => metric_calc(number, 0.447, "m/s"),
