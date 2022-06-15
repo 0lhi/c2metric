@@ -13,14 +13,14 @@ fn main() {
     io::stdin().read_line(&mut input).unwrap();
     let number: f64 = input
         .trim()
-        .replace(rdlc::is_not_float, "") // rdlc::is_not_numeric
+        .replace(|c: char| !rdlc::digital_scale(c) || c == ' ', "") // rdlc::is_not_numeric
         .trim()
         .parse()
         .expect("Program crashes. Did you use two points?");
     let start_unit: String = input
         .trim()
         .to_lowercase()
-        .replace(|c: char| !rdlc::is_not_float(c) || c == ' ', "")
+        .replace(rdlc::digital_scale, "")
         .trim()
         .to_string();
     println!(
@@ -30,7 +30,7 @@ fn main() {
     #[rustfmt::skip]
     let (mut end_unit, mut metric_main) = match start_unit.as_str() {
         // Areas
-        "squareinch" | "squareinches" | "sqin"
+        "squareinch" | "squareinches"  | "sqin"
         => metric_calc(number, 0.0006452, "m²"),
         "squaremile" | "squaremiles" | "sqmi"
         => metric_calc(number, 2590000.0, "m²"),
@@ -40,6 +40,8 @@ fn main() {
         "mile" | "miles" | "mi"
         => metric_calc(number, 1609.0, "meter"),
         // Masses
+        "longton" | "lt"
+        => metric_calc(number, 28.35, "g"),
         "ounce" | "ounces" | "oz"
         => metric_calc(number, 28.35, "g"),
         "pound" | "pounds" | "lb" | "lbs"
@@ -54,7 +56,10 @@ fn main() {
         => metric_calc(number - 32.0, 5.0 / 9.0, "°C"),
         "°r" | "degreerankine" | "degreesrankine"
         => metric_calc(number - 491.67, 5.0 / 9.0, "°C"),
-
+        "°k" | "degreekelvin" | "degreeskelvin"
+        => metric_calc(number - 273.15, 1.0, "°C"),
+        "°c" | "degreecelsius" | "degreescelsius"
+        => metric_calc(number, 1.0, "°C"),
         _ => panic!("Error LOL"),
     };
 
@@ -66,8 +71,11 @@ fn main() {
         "°C" => (),
         _ => panic!("Error 2 L0L"),
     };
-    println!("{} {}", metric_main, end_unit);
     if end_unit == "m/s" {
-        println!("{} km/h", metric_main * 3.6)
-    };
+        println!("{} m/s / {} km/h", metric_main, metric_main * 3.6)
+    } else if end_unit == "°C" && metric_main <= 0.0 {
+        println!("{} °C [{:.2} °K]", metric_main, metric_main + 273.15)
+    } else {
+        println!("{} {}", metric_main, end_unit);
+    }
 }
