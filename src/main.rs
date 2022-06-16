@@ -75,10 +75,16 @@ fn main() {
         "carat" | "carats"
         => metric_calc(number, 0.20, "g"),
         // Speed
-        "mileperhour" | "milesperhour" | "mph" | "ml/h"
+        "mileperhour" | "milesperhour" | "mph" | "ml/h" | "mi/h"
         => metric_calc(number, 0.447, "m/s"),
+        "milepersecond" | "milespersecond" | "mps" | "ml/s" | "mi/s"
+        => metric_calc(number, 1609.344, "m/s"),
         "footpersecond" | "feetpersecond" | "ft/s" | "fps"
         => metric_calc(number, 0.3048, "m/s"),
+        "knot" | "knots" | "kn" | "kns"
+        => metric_calc(number, 0.514444444444446, "m/s"),
+        "furlongperfortnight" | "furlongsperfortnight"
+        => metric_calc(number, 0.00016630985449735, "m/s"),
         // Temperatures
         "°f" | "degreefahrenheit" | "degreesfahrenheit"
         => metric_calc(number - 32.0, 5.0 / 9.0, "°C"),
@@ -100,9 +106,9 @@ fn main() {
         _ => panic!("Error 2 L0L"),
     };
     if end_unit == "m/s" {
-        println!("{} m/s / {} km/h", metric_main, metric_main * 3.6)
+        println!("{:.2} m/s • {:.2} km/h", metric_main, metric_main * 3.6)
     } else if end_unit == "°C" && metric_main <= 0.0 {
-        println!("{} °C [{:.2} °K]", metric_main, metric_main + 273.15)
+        println!("{:.2} °C [{:.2} °K]", metric_main, metric_main + 273.15)
     } else {
         println!("{} {}", metric_main, end_unit);
     }
