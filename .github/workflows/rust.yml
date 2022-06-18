@@ -89,10 +89,10 @@ jobs:
           # [default value: windows]
           # [possible values: all, unix, windows, none]
           zip: windows
-        env:
+     #   env:
           # (required)
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # (optional) On which platform to distribute the `.zip` file.
           # [default value: windows]
           # [possible values: all, unix, windows, none]
-          zip: all
+          #zip: all
