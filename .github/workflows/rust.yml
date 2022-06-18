@@ -8,8 +8,9 @@ jobs:
   create-release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: taiki-e/create-gh-release-action@v1
+      - uses: actions/checkout@master
+      - name: Compile and release
+        uses: rust-build/rust-build.action@v1.3.2
         #with:
           # (optional)
           #changelog: CHANGELOG.md
